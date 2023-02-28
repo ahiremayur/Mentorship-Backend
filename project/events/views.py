@@ -14,7 +14,7 @@ def event_list(request, format=None):
 
 
 @api_view(['PUT'])
-def add_item(request, id, format=None):
+def edit_item(request, id, format=None):
     event = Event.objects.get(pk=id)
     serializer = EventSerializer(event, data=request.data)
     if serializer.is_valid():
@@ -28,3 +28,11 @@ def delete_item(request, id, format=None):
     event = Event.objects.get(pk=id)
     event.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['POST'])
+def add_item(request, format=None):
+    serializer = EventSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
