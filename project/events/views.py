@@ -35,4 +35,11 @@ def add_item(request, format=None):
     serializer = EventSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+@api_view(['GET'])
+def event_list2(request, id, format=None):
+    event = Event.objects.get(pk=id)
+    serializer = EventSerializer(event)
+    return JsonResponse(serializer.data, safe=False)
