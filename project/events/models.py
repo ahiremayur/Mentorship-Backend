@@ -3,10 +3,10 @@ from django.db import models
 
 class Event(models.Model):
     conducting_body = models.CharField(max_length=50)
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=200, primary_key=True)
     description = models.CharField(max_length=1000)
-    date = models.DateField(default=FileNotFoundError)
-    time = models.TimeField(default=FileNotFoundError)
+    date = models.DateField(auto_now_add=True)
+    time = models.TimeField(auto_now_add=True)
     venue = models.CharField(max_length=500)
     image = models.ImageField(default=FileNotFoundError)
     favs_option = models.BooleanField(default=False)
